@@ -44,16 +44,23 @@ describe("Store", function(){
   it("Should increase the balance by the price of the sold record", function(){
     store.addRecord(record1);
     store.addRecord(record2);
-    store.sellRecord(record1);
+    store.sellRecord("Daisy");
     assert.equal(111, store.balance);
   });
 
-  it("should return the financial state of the store", function(){
+  it("Should return the financial state of the store", function(){
     store.addRecord(record1);
     store.addRecord(record2);
     store.addRecord(record2);
     store.addRecord(record2);
     assert.equal(147, store.financialReport());
+  });
+
+  it("Should remove the sold record from the inventory", function(){
+    store.addRecord(record1);
+    store.addRecord(record2);
+    store.sellRecord("Daisy");
+    assert.deepEqual([record2], store.listInventory());
   });
 
 });

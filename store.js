@@ -18,15 +18,25 @@ Store.prototype = {
     return this.inventory;
   },
 
-  sellRecord: function(record){
-    this.balance += record.price;
-  },
+  sellRecord: function(recordTitle) {
+
+   var chosenRecord = this.inventory.find(function(record) {
+     return record.title === recordTitle;
+   });
+
+   var index = this.inventory.indexOf(chosenRecord);
+
+   this.inventory.splice(index, 1);
+   this.balance += chosenRecord.price;
+
+   return chosenRecord;
+ },
 
   financialReport: function(){
     var stockPrice = this.inventory.reduce(function(accum, record){
       return accum + record.price;
     }, 0);
-      return  stockPrice + this.balance;
+    return  stockPrice + this.balance;
   }
 };
 

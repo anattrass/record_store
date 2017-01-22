@@ -27,13 +27,21 @@ describe("Customer", function(){
   });
 
   it("Should add a record to the collection", function(){
-    customer.buyRecord(record);
+    store.addRecord(record);
+    customer.buyRecord(store, "Daisy");
     assert.equal(1, customer.collectionCount());
   });
 
   it("Should reduce the customers money when a record is bought", function(){
-    customer.buyRecord(record);
+    store.addRecord(record);
+    customer.buyRecord(store, "Daisy");
     assert.equal(45, customer.money);
+  });
+
+  it("Should have the purchased record in the collection", function(){
+    store.addRecord(record);
+    customer.buyRecord(store, "Daisy");
+    assert.deepEqual([record], customer.listCollection());
   });
 
 });
