@@ -20,7 +20,8 @@ Customer.prototype = {
   },
 
   sellRecord: function(recordTitle) {
-    var chosenRecord = this.records.find(function(record) {
+
+    var chosenRecord = this.collection.find(function(record) {
       return record.title === recordTitle;
     });
 

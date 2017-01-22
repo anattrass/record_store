@@ -18,6 +18,12 @@ Store.prototype = {
     return this.inventory;
   },
 
+  buyRecord: function(store, recordTitle) {
+    var record = customer.sellRecord(recordTitle);
+    this.balance -= record.price;
+    this.inventory.push(record);
+  },
+
   sellRecord: function(recordTitle) {
 
    var chosenRecord = this.inventory.find(function(record) {

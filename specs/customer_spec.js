@@ -10,7 +10,8 @@ describe("Customer", function(){
 
   beforeEach(function(){
     customer = new Customer("Lanky Kong", 56);
-    record = new Record("Brand New", "Daisy", 11.00);
+    record1 = new Record("Brand New", "Daisy", 11.00);
+    record2 = new Record("Funeral for A Friend", "Hours", 12.00);
     store = new Store("Funky Kong Records", "DK Island", 100);
   });
 
@@ -27,21 +28,31 @@ describe("Customer", function(){
   });
 
   it("Should add a record to the collection", function(){
-    store.addRecord(record);
+    store.addRecord(record1);
     customer.buyRecord(store, "Daisy");
     assert.equal(1, customer.collectionCount());
   });
 
   it("Should reduce the customers money when a record is bought", function(){
-    store.addRecord(record);
+    store.addRecord(record1);
     customer.buyRecord(store, "Daisy");
     assert.equal(45, customer.money);
   });
 
   it("Should have the purchased record in the collection", function(){
-    store.addRecord(record);
+    store.addRecord(record1);
     customer.buyRecord(store, "Daisy");
-    assert.deepEqual([record], customer.listCollection());
+    assert.deepEqual([record1], customer.listCollection());
+  });
+
+  it("Should be able to sell a record", function(){
+    store.addRecord(record1);
+    store.addRecord(record2);
+    customer.buyRecord(store, "Daisy");
+    customer.buyRecord(store, "Hours");
+    customer.sellRecord("Daisy");
+    assert.equal(1, customer.collectionCount());
+    assert.equal(44, customer.money);
   });
 
 });
